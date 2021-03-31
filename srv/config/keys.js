@@ -6,7 +6,7 @@ module.exports = {
   },
   mongodb: {
     connectURL:
-      "mongodb+srv://gcus3r:OdgIKXZDV4uaNxF7@wowclassifieds0.idwtx.mongodb.net/WoWGuildClassifieds?retryWrites=true&w=majority",
+      "mongodb+srv://gcus3r:OdgIKXZDV4uaNxF7@wowclassifieds0.idwtx.mongodb.net/MythicPlusTeams?retryWrites=true&w=majority",
   },
   session: {
     sessionKey:
