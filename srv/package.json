@@ -8,9 +8,14 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "cookie-session": "^1.4.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "mongoose": "^5.12.2",
+    "mongoose-type-email": "^1.1.2",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-bnet": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
