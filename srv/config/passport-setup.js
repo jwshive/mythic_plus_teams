@@ -2,6 +2,7 @@ const BnetStrategy = require("passport-bnet").Strategy;
 const passport = require("passport");
 const keys = require("./keys");
 const User = require("../models/user-model");
+const UserComms = require("../models/user-comms-model");
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -42,6 +43,12 @@ passport.use(
             .save()
             .then((newUser) => {
               console.log(newUser);
+              // stub out userComms model
+              new UserComms({
+                bnetID: profile.id,
+                emailAddress: "",
+                discordName: "",
+              }).save();
               return done(null, profile);
             });
         }
