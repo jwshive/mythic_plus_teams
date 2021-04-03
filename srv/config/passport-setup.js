@@ -34,7 +34,6 @@ passport.use(
           });
         } else {
           // create user
-          console.log(profile);
           new User({
             battletag: profile.battletag,
             bnetID: profile.id,
@@ -42,7 +41,6 @@ passport.use(
           })
             .save()
             .then((newUser) => {
-              console.log(newUser);
               // stub out userComms model
               new UserComms({
                 bnetID: profile.id,
