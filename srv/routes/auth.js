@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const passport = require("passport");
-//const User = require("../models/user-model");
 
 //auth login
 router.get("/login", passport.authenticate("bnet"));
@@ -13,7 +12,6 @@ router.get(
     scope: ["wow.profile"],
   }),
   (req, res) => {
-    // res.redirect('/dashboard');
     res.json({ message: "Logged In Successfully", user: res.req.user });
   }
 );

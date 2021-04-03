@@ -8,9 +8,9 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-  //   User.findById(id, function (err, user) {
-  //     done(err, user);
-  //   });
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
 });
 
 passport.use(
@@ -37,8 +37,6 @@ passport.use(
           new User({
             battletag: profile.battletag,
             bnetID: profile.id,
-            emailAddress: "bogus@email.com",
-            discordName: "",
             accessToken: profile.token,
           })
             .save()
