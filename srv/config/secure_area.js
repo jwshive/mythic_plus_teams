@@ -1,5 +1,5 @@
 const secured = (req, res, next) => {
-  if (req.user) {
+  if (req.cookies['battleTag']) {
     return next();
   }
   req.session.returnTo = req.originalUrl;
