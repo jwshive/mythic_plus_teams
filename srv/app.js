@@ -9,7 +9,7 @@ const cookieSession = require("cookie-session");
 const mongoose = require("mongoose");
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const characterRouter = require("./routes/character");
 const authRouter = require("./routes/auth");
 
 const app = express();
@@ -23,6 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Force Login
+
 
 // Database Init
 mongoose.connect(
@@ -43,7 +46,7 @@ app.use(
 
 // Routes
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/auth", authRouter);
+app.use("/character", characterRouter);
 
 module.exports = app;
