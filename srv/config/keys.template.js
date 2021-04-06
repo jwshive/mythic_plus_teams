@@ -7,6 +7,9 @@ module.exports = {
   mongodb: {
     connectURL: "",
   },
+  postgres: {
+    connectURL: "",
+  },
   session: {
     sessionKey: "",
   },

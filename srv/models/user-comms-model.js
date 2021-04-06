@@ -1,17 +1,19 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-require("mongoose-type-email");
+const { Sequelize, DataTypes, Model } = require("sequelize");
+const keys = require("../config/keys");
+const sequelize = require("../config/database");
 
-const userCommsSchema = new Schema({
-  bnetID: Number,
+const UserComm = sequelize.define("usercomm", {
+  bnetID: { type: DataTypes.INTEGER, allowNull: false },
   emailAddress: {
-    type: mongoose.SchemaTypes.Email,
-    required: false,
-    allowBlank: true,
+    type: DataTypes.STRING,
+    isUnique: true,
+    lowercase: true,
+    validate: { isEmail: true },
   },
-  discordName: { type: String, required: false },
+  discordName: { type: DataTypes.STRING, allowNull: true },
 });
-
-const UserComm = mongoose.model("userComms", userCommsSchema);
+(async () => {
+  await sequelize.sync({ force: true });
+})();
 
 module.exports = UserComm;
