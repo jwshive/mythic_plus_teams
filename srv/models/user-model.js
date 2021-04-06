@@ -1,12 +1,14 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { Sequelize, DataTypes, Model } = require("sequelize");
+const keys = require("../config/keys");
+const sequelize = require("../config/database");
 
-const userSchema = new Schema({
-  battletag: String,
-  bnetID: Number,
-  accessToken: String,
+const User = sequelize.define("user", {
+  battletag: { type: DataTypes.STRING, allowNull: false },
+  bnetID: { type: DataTypes.INTEGER, allowNull: false },
+  accessToken: { type: DataTypes.STRING, allowNull: false },
 });
-
-const User = mongoose.model("user", userSchema);
+(async () => {
+  await sequelize.sync({ force: true });
+})();
 
 module.exports = User;

@@ -6,7 +6,7 @@ const passportSetup = require("./config/passport-setup");
 const passport = require("passport");
 const keys = require("./config/keys");
 const cookieSession = require("cookie-session");
-const mongoose = require("mongoose");
+const sequelize = require("./config/database");
 
 const indexRouter = require("./routes/index");
 const characterRouter = require("./routes/character");
@@ -24,17 +24,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Force Login
-
-
 // Database Init
-mongoose.connect(
-  keys.mongodb.connectURL,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("Mongo, ONLINE");
-  }
-);
+sequelize
+  .authenticate()
+  .then(console.log("Postgres, ONLINE"))
+  .catch((error) => console.error(error));
 
 // Cookies
 app.use(

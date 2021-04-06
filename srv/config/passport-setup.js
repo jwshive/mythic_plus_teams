@@ -1,6 +1,7 @@
 const BnetStrategy = require("passport-bnet").Strategy;
 const passport = require("passport");
 const keys = require("./keys");
+const db = require("../config/database");
 const User = require("../models/user-model");
 const UserComms = require("../models/user-comms-model");
 
@@ -24,33 +25,24 @@ passport.use(
       scope: ["wow.profile"],
     },
     (accessToken, refreshToken, profile, done) => {
-      // check if user exists
-      User.findOne({ bnetID: profile.id }).then((foundUser) => {
-        if (foundUser) {
-          // Update accessToken
-          foundUser.updateOne({ accessToken: profile.token }, () => {
-            console.log("Updated access token");
-            return done(null, profile);
-          });
-        } else {
-          // create user
-          new User({
-            battletag: profile.battletag,
-            bnetID: profile.id,
-            accessToken: profile.token,
-          })
-            .save()
-            .then((newUser) => {
-              // stub out userComms model
-              new UserComms({
-                bnetID: profile.id,
-                emailAddress: "",
-                discordName: "",
-              }).save();
-              return done(null, profile);
-            });
-        }
+      console.log(typeof User);
+      User.findOrCreate({
+        where: { bnetID: profile.id },
+        defaults: {
+          battletag: profile.battletag,
+          bnetID: profile.id,
+          accessToken: profile.token,
+        },
       });
+      UserComms.findOrCreate({
+        where: { bnetID: profile.id },
+        defaults: {
+          bnetID: profile.id,
+          emailAddress: "name@company.com",
+          discordName: "",
+        },
+      });
+      return done(null, profile);
     }
   )
 );
